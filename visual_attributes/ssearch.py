@@ -1,6 +1,6 @@
 import sys
 #Please, change the following path to where convnet2 can be located
-sys.path.append("/home/jsaavedr/Research/git/tensorflow-2/convnet2")
+sys.path.append("/content/convnet2")
 import tensorflow as tf
 import datasets.data as data
 import utils.configuration as conf
@@ -18,7 +18,9 @@ class SSearch :
         #defiing input_shape                    
         self.input_shape =  (self.configuration.get_image_height(), 
                              self.configuration.get_image_width(),
-                             self.configuration.get_number_of_channels())                       
+                             self.configuration.get_number_of_channels())  
+        #defining target layer
+        self.target_layer = self.configuration.get_target_layer()
         #loading the model
         model = tf.keras.applications.ResNet50(include_top=True, 
                                                weights='imagenet', 
@@ -30,7 +32,7 @@ class SSearch :
         #redefining the model to get the hidden output
         color_layer =  'conv2_block3_out'
         texture_layer =  'conv4_block6_out'
-        self.output_layer_name = color_layer
+        self.output_layer_name = self.target_layer
         output = model.get_layer(self.output_layer_name).output
         output = tf.keras.layers.GlobalAveragePooling2D()(output)                
         self.sim_model = tf.keras.Model(model.input, output)        

@@ -39,6 +39,7 @@ class ConfigurationFile:
                 #snapshot folder, where training data will be saved
                 self.snapshot_prefix = config.get(modelname, "SNAPSHOT_DIR")
                 self.data_dir = config.get(modelname,"DATA_DIR")
+                self.target_layer = config.get(modelname,"TARGET_LAYER")
                 self.search_dir = config.get(modelname,"SEARCH_DIR")
                 self.channels = config.getint(modelname,"CHANNELS")
                 self.keep_aspect_ratio = config.getboolean(modelname, "KEEP_ASPECT_RATIO")                            
@@ -92,6 +93,9 @@ class ConfigurationFile:
     
     def get_data_dir(self):
         return self.data_dir
+        
+    def get_target_layer(self):
+        return self.target_layer
     
     def get_search_dir(self):
         return self.search_dir
