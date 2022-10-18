@@ -28,7 +28,7 @@ class SSearch :
                                                input_shape =self.input_shape, 
                                                pooling=None, 
                                                classes=1000)
-        model.summary()
+        #model.summary()
         #redefining the model to get the hidden output
         color_layer =  'conv2_block3_out'
         texture_layer =  'conv4_block6_out'
